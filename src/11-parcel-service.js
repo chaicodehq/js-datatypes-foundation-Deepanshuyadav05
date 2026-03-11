@@ -52,21 +52,43 @@
  *   stringToChars("Dak")                  // => ["D", "a", "k"]
  */
 export function parcelToJSON(parcel) {
-  // Your code here
+    if (parcel === undefined) return "";
+
+    try {
+        // Converts object to a JSON string
+        return JSON.stringify(parcel);
+    } catch (error) {
+        // Handles cases like circular references where stringify fails
+        return "";
+    }
 }
 
 export function jsonToParcel(jsonString) {
-  // Your code here
+    if (typeof jsonString !== 'string') return null;
+
+    try {
+        // Converts JSON string back into a JavaScript object
+        return JSON.parse(jsonString);
+    } catch (error) {
+        // Handles invalid JSON syntax errors
+        return null;
+    }
 }
 
 export function convertToString(value) {
-  // Your code here
+    // String() constructor is the safest way to convert any type to a string
+    return String(value);
 }
 
 export function convertToNumber(value) {
-  // Your code here
+    // Number() converts strings, booleans, etc., to their numeric equivalent
+    // Note: Number("") becomes 0, and Number("hello") becomes NaN
+    return Number(value);
 }
 
 export function stringToChars(str) {
-  // Your code here
+    if (typeof str !== 'string') return [];
+
+    // Array.from() splits a string into an array of its individual characters
+    return Array.from(str);
 }

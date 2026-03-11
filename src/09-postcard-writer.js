@@ -52,21 +52,53 @@
  *   countVowels("Namaste")     // => 3
  */
 export function writePostcard(sender, receiver, message) {
-  // Your code here
+    // Validate: all must be strings and not empty after trim
+    if (
+        typeof sender !== 'string' || sender.trim() === "" ||
+        typeof receiver !== 'string' || receiver.trim() === "" ||
+        typeof message !== 'string' || message.trim() === ""
+    ) {
+        return "";
+    }
+
+    // Use Template Literals (backticks) for multi-line formatting
+    return `Priy ${receiver.trim()},\n\n${message.trim()}\n\nAapka/Aapki,\n${sender.trim()}`;
 }
 
 export function isValidPincode(code) {
-  // Your code here
+    // Must be a string of exactly 6 characters
+    if (typeof code !== 'string' || code.length !== 6) return false;
+
+    // Indian pincodes cannot start with "0"
+    if (code.startsWith("0")) return false;
+
+    // Regex check: ensure every character is a digit (0-9)
+    const isAllDigits = /^\d+$/.test(code);
+
+    return isAllDigits;
 }
 
-export function formatPostcardField(label, value, width) {
-  // Your code here
+export function formatPostcardField(label, value, width = 12) {
+    if (typeof label !== 'string' || typeof value !== 'string') return "";
+
+    // .padEnd() adds spaces to the right until it reaches the 'width'
+    // This aligns the colons (:) perfectly in the terminal
+    return `${label.padEnd(width)}: ${value}`;
 }
 
 export function isFromState(address, stateCode) {
-  // Your code here
+    if (typeof address !== 'string' || typeof stateCode !== 'string') return false;
+
+    // .endsWith() is perfect for checking the state at the end of an address string
+    return address.endsWith(stateCode);
 }
 
 export function countVowels(message) {
-  // Your code here
+    if (typeof message !== 'string') return 0;
+
+    // .match() searches for the regex pattern globally ('g')
+    const vowelsFound = message.match(/[aeiouAEIOU]/g);
+
+    // If no vowels found, .match returns null, so we return 0
+    return vowelsFound ? vowelsFound.length : 0;
 }

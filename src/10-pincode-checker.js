@@ -58,21 +58,35 @@
  *   isTruthy("")                 // => false
  */
 export function getDataType(value) {
-  // Your code here
+    // Case 1: Handle null (Famous JS bug: typeof null is "object")
+    if (value === null) return "null";
+
+    // Case 2: Handle arrays (typeof [] is also "object")
+    if (Array.isArray(value)) return "array";
+
+    // Case 3: For everything else, use the standard typeof
+    return typeof value;
 }
 
 export function isValidParcelWeight(weight) {
-  // Your code here
+    // Number.isFinite checks if it's a number and NOT Infinity or NaN
+    // String "5" will return false because it's not a number type
+    return typeof weight === 'number' && Number.isFinite(weight) && weight > 0;
 }
 
 export function isWholeNumber(value) {
-  // Your code here
+    // Number.isInteger checks if the value is a number and an integer
+    // 42.5 or "42" will return false
+    return Number.isInteger(value);
 }
 
 export function isNotANumber(value) {
-  // Your code here
+    // Specifically checks if the value is the literal NaN
+    // Number.isNaN("hello") is false because "hello" is a string, not NaN
+    return Number.isNaN(value);
 }
 
 export function isTruthy(value) {
-  // Your code here
+    // Boolean() constructor converts any value to its truthy/falsy equivalent
+    return Boolean(value);
 }

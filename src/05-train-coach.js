@@ -48,21 +48,45 @@
  *   areAllConfirmed(passengers)          // => true/false
  */
 export function findPassenger(passengers, name) {
-  // Your code here
+    // Validate inputs
+    if (!Array.isArray(passengers) || typeof name !== 'string') return undefined;
+
+    // Use .find() to get the actual object. Case-insensitive check using .toLowerCase()
+    return passengers.find(
+        (p) => p.name.toLowerCase() === name.toLowerCase()
+    );
 }
 
 export function getPassengerIndex(passengers, name) {
-  // Your code here
+    // Validate inputs
+    if (!Array.isArray(passengers) || typeof name !== 'string') return -1;
+
+    // Use .findIndex() to get the position (0, 1, 2...)
+    return passengers.findIndex(
+        (p) => p.name.toLowerCase() === name.toLowerCase()
+    );
 }
 
 export function isAnyWaitlisted(passengers) {
-  // Your code here
+    // Check if it's an array and not empty
+    if (!Array.isArray(passengers) || passengers.length === 0) return false;
+
+    // .some() returns true if at least ONE item matches the condition
+    return passengers.some((p) => p.status === "waitlisted");
 }
 
 export function areAllConfirmed(passengers) {
-  // Your code here
+    // Check if it's an array and not empty
+    if (!Array.isArray(passengers) || passengers.length === 0) return false;
+
+    // .every() returns true only if ALL items match the condition
+    return passengers.every((p) => p.status === "confirmed");
 }
 
 export function getWaitlistedPassengers(passengers) {
-  // Your code here
+    // Validate array
+    if (!Array.isArray(passengers)) return [];
+
+    // .filter() creates a new array with all items that pass the test
+    return passengers.filter((p) => p.status === "waitlisted");
 }

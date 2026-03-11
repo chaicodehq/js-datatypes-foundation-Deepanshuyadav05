@@ -46,21 +46,49 @@
  *   splitAndJoinRangoli("red,blue", ",", "-")  // => "red-blue"
  */
 export function repeatPattern(pattern, times) {
-  // Your code here
+    // Check if pattern is string and times is a positive integer
+    if (typeof pattern !== 'string' || !Number.isInteger(times) || times < 0) {
+        return "";
+    }
+
+    return pattern.repeat(times);
 }
 
 export function extractRangoliCenter(design, start, end) {
-  // Your code here
+    // Basic type checking
+    if (typeof design !== 'string' || typeof start !== 'number' || typeof end !== 'number') {
+        return "";
+    }
+
+    // Use .slice() to extract the specific portion
+    return design.slice(start, end);
 }
 
 export function splitAndJoinRangoli(colorString, oldSep, newSep) {
-  // Your code here
+    // Validate input
+    if (typeof colorString !== 'string') return "";
+
+    // Break it apart by the old separator, then stitch it with the new one
+    return colorString.split(oldSep).join(newSep);
 }
 
 export function replaceRangoliColor(design, oldColor, newColor) {
-  // Your code here
+    // Ensure all inputs are strings
+    if (typeof design !== 'string' || typeof oldColor !== 'string' || typeof newColor !== 'string') {
+        return "";
+    }
+
+    // .replaceAll() ensures every instance of the old color is swapped
+    return design.replaceAll(oldColor, newColor);
 }
 
 export function makeRangoliBorder(char, length) {
-  // Your code here
+    // Validation for string and positive length
+    if (typeof char !== 'string' || typeof length !== 'number' || length <= 0) {
+        return "";
+    }
+
+    // 1. Repeat the character enough times to exceed the length
+    // 2. Use .slice(0, length) to cut it exactly where needed
+    return char.repeat(length).slice(0, length);
 }

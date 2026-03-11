@@ -45,18 +45,42 @@
  *   createPaanOrder({type:"meetha"}, {extra:"gulkand"}) // => {type:"meetha",extra:"gulkand"}
  *   updatePrices({meetha:30, saada:20}, 10)              // => {meetha:40, saada:30}
  */
+// Helper to validate if something is a plain object
+const isObject = (obj) => typeof obj === 'object' && obj !== null && !Array.isArray(obj);
+
 export function createPaanOrder(basePaan, customizations) {
-  // Your code here
+    if (!isObject(basePaan)) return {};
+    if (!isObject(customizations)) return { ...basePaan };
+
+    // Object.assign with an empty {} as first argument ensures original is NOT mutated
+    return Object.assign({}, basePaan, customizations);
 }
 
 export function freezeMenu(menu) {
-  // Your code here
+    if (!isObject(menu)) return {};
+
+    // Object.freeze prevents adding, deleting, or changing properties
+    return Object.freeze(menu);
 }
 
 export function updatePrices(menu, increase) {
-  // Your code here
+    if (!isObject(menu) || typeof increase !== 'number') return {};
+
+    // 1. Get entries [ ["meetha", 30], ["saada", 20] ]
+    // 2. Map over them to add the increase to the price (value)
+    // 3. Convert back to object using fromEntries
+    const updatedEntries = Object.entries(menu).map(([name, price]) => {
+        return [name, price + increase];
+    });
+
+    return Object.fromEntries(updatedEntries);
 }
 
 export function mergeDailySpecials(regularMenu, specialsMenu) {
-  // Your code here
+    const safeRegular = isObject(regularMenu) ? regularMenu : {};
+    const safeSpecials = isObject(specialsMenu) ? specialsMenu : {};
+
+    // Spread operator makes merging very clean
+    // If keys match, safeSpecials will overwrite safeRegular
+    return { ...safeRegular, ...safeSpecials };
 }

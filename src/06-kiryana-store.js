@@ -51,21 +51,50 @@
  *   formatBill([{name:"Atta",price:40,qty:2}]) // => "Atta x 2 = Rs.80"
  */
 export function getItemNames(items) {
-  // Your code here
+    // Check if items is an array
+    if (!Array.isArray(items)) return [];
+
+    // .map() transforms each object into just its name string
+    return items.map((item) => item.name);
 }
 
 export function getAffordableItems(items, maxPrice) {
-  // Your code here
+    // Validate array and maxPrice
+    if (!Array.isArray(items) || typeof maxPrice !== 'number') return [];
+
+    // .filter() keeps only those items that satisfy the price condition
+    return items.filter((item) => item.price <= maxPrice);
 }
 
 export function calculateTotal(items) {
-  // Your code here
+    // Check if items is an array or empty
+    if (!Array.isArray(items) || items.length === 0) return 0;
+
+    // .reduce() accumulates the total (price * qty) starting from 0
+    return items.reduce((total, item) => {
+        return total + (item.price * item.qty);
+    }, 0);
 }
 
 export function sortByPrice(items, ascending) {
-  // Your code here
+    if (!Array.isArray(items)) return [];
+
+    // Important: Use [...items] to create a shallow copy so the original array isn't changed
+    return [...items].sort((a, b) => {
+        if (ascending) {
+            return a.price - b.price; // Low to High
+        } else {
+            return b.price - a.price; // High to Low
+        }
+    });
 }
 
 export function formatBill(items) {
-  // Your code here
+    if (!Array.isArray(items) || items.length === 0) return "";
+
+    // 1. .map() formats each object into a readable string
+    // 2. .join("\n") combines them with new line breaks
+    return items
+        .map((item) => `${item.name} x ${item.qty} = Rs.${item.price * item.qty}`)
+        .join("\n");
 }

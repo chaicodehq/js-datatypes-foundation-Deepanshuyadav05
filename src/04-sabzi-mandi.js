@@ -48,21 +48,55 @@
  *   removeLastItem(["tamatar", "pyaaz", "mirchi"])   // => "mirchi"
  */
 export function addToCart(cart, item) {
-  // Your code here
+    // Check if cart is actually an array
+    if (!Array.isArray(cart)) return -1;
+
+    // Validate item: must be a non-empty string
+    if (typeof item !== 'string' || item.trim() === "") {
+        return cart.length;
+    }
+
+    // .push() adds to the end and returns the new length
+    return cart.push(item);
 }
 
 export function addUrgentItem(cart, item) {
-  // Your code here
+    // Check if cart is an array
+    if (!Array.isArray(cart)) return [];
+
+    // Validate item: must be a string
+    if (typeof item !== 'string' || item.trim() === "") {
+        return cart;
+    }
+
+    // .unshift() adds to the beginning of the array
+    cart.unshift(item);
+    return cart;
 }
 
 export function removeLastItem(cart) {
-  // Your code here
+    // Check if cart is an array and not empty
+    if (!Array.isArray(cart) || cart.length === 0) {
+        return undefined;
+    }
+
+    // .pop() removes the last element and returns it
+    return cart.pop();
 }
 
 export function isInCart(cart, item) {
-  // Your code here
+    // Check if cart is an array
+    if (!Array.isArray(cart)) return false;
+
+    // .includes() returns true if the item exists in the array
+    return cart.includes(item);
 }
 
 export function mergeCarts(cart1, cart2) {
-  // Your code here
+    // Use empty array if input is not an array
+    const safeCart1 = Array.isArray(cart1) ? cart1 : [];
+    const safeCart2 = Array.isArray(cart2) ? cart2 : [];
+
+    // .concat() joins two arrays into a new one
+    return safeCart1.concat(safeCart2);
 }

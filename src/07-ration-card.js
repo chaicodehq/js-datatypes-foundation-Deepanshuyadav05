@@ -52,22 +52,51 @@
  *   hasRationCard({"RC001":{...}}, "RC001") // => true
  *   removeRationCard(registry, "RC001")    // => true
  */
+// Helper function to check if input is a valid plain object
+const isValidObject = (obj) => {
+    return typeof obj === "object" && obj !== null && !Array.isArray(obj);
+};
+
 export function getFamilyNames(registry) {
-  // Your code here
+    if (!isValidObject(registry)) return [];
+
+    // Object.keys() gives an array of all the property names (IDs)
+    return Object.keys(registry);
 }
 
 export function getAllFamilies(registry) {
-  // Your code here
+    if (!isValidObject(registry)) return [];
+
+    // Object.values() gives an array of all the family data objects
+    return Object.values(registry);
 }
 
 export function getRationCardEntries(registry) {
-  // Your code here
+    if (!isValidObject(registry)) return [];
+
+    // Object.entries() returns an array of [key, value] pairs
+    return Object.entries(registry);
 }
 
 export function hasRationCard(registry, cardId) {
-  // Your code here
+    if (!isValidObject(registry) || typeof cardId !== "string") {
+        return false;
+    }
+
+    // hasOwnProperty checks if the specific ID exists in the object
+    return Object.prototype.hasOwnProperty.call(registry, cardId);
 }
 
 export function removeRationCard(registry, cardId) {
-  // Your code here
+    if (!isValidObject(registry) || typeof cardId !== "string") {
+        return false;
+    }
+
+    // Check if it exists before trying to delete
+    if (Object.prototype.hasOwnProperty.call(registry, cardId)) {
+        delete registry[cardId];
+        return true;
+    }
+
+    return false;
 }
